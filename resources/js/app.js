@@ -32,7 +32,16 @@ Vue.use(VueContentPlaceholders)
  */
 // import vuesax css
 import 'vuesax/dist/vuesax.css'
+
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    methods:{
+        logoutUser() {
+            axios.post('/logout').then((res) => {
+                window.location.href = "/login";
+            });
+        },
+    }
+
 });

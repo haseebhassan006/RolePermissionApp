@@ -41,23 +41,66 @@
 
 
         <div class="con-form">
-          <vs-input  placeholder="Email">
-            <template #icon>
-              @
-            </template>
-          </vs-input>
-          <vs-input type="password"  placeholder="Password">
-            <template #icon>
-              <i class='bx bxs-lock'></i>
-            </template>
-          </vs-input>
-          <div class="flex">
-            <vs-checkbox >Remember me</vs-checkbox>
-            <a href="#">Forgot Password?</a>
+            <div class="mt-10 sm:mt-0">
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <div class="px-4 sm:px-0">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+        <p class="mt-1 text-sm text-gray-600">
+          Use a permanent address where you can receive mail.
+        </p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <form action="#" method="POST">
+        <div class="shadow overflow-hidden sm:rounded-md">
+          <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="grid grid-cols-6 gap-6">
+              <div class="col-span-6 sm:col-span-3">
+
+                <vs-input primary v-model="value" placeholder="First Name" />
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+
+               <vs-input primary v-model="value" placeholder="Last Name" />
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+
+               <vs-input :color="this.$root.primary_color" primary v-model="value" placeholder="Email address" />
+              </div>
+
+              <div class="col-span-6 sm:col-span-3">
+
+                <vs-select label="Multiple collapse chips"  :multiple="true" :color="this.$root.primary_color" collapse-chips placeholder="Select Role" v-model="value3">
+                        <vs-option label="Vuesax" value="1">
+                            Vuesax
+                        </vs-option>
+                       <vs-option label="Vue" value="2">
+                            Vue
+                        </vs-option>
+                       <vs-option label="Javascript" value="3">
+                            Javascript
+                        </vs-option>
+                </vs-select>
+              </div>
+
+
+            </div>
+          </div>
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Save
+            </button>
           </div>
         </div>
-
-        <template #footer>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+    <template #footer>
           <div class="footer-dialog">
             <vs-button block>
               Sign In
@@ -88,6 +131,7 @@ export default{
             loading:false,
             edit_mode:false,
             loading:false,
+            value3: ['1', '4', '5', '6'],
 
         }
     },
@@ -133,5 +177,6 @@ export default{
      width: 100%
 
 }
+
 
 </style>

@@ -5279,7 +5279,14 @@ Vue.use(vue_content_placeholders__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 var app = new Vue({
   el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_0__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_0__["default"],
+  methods: {
+    logoutUser: function logoutUser() {
+      axios.post('/logout').then(function (res) {
+        window.location.href = "/login";
+      });
+    }
+  }
 });
 
 /***/ }),
