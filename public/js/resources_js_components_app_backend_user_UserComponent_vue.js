@@ -411,6 +411,8 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _c("UserTable"),
+      _vm._v(" "),
       _vm.loading
         ? _c(
             "content-placeholders",
@@ -435,8 +437,6 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("UserTable"),
-      _vm._v(" "),
       _c(
         "vs-dialog",
         {
@@ -458,23 +458,14 @@ var render = function() {
               key: "footer",
               fn: function() {
                 return [
-                  _c(
-                    "div",
-                    { staticClass: "footer-dialog" },
-                    [
-                      _c("vs-button", { attrs: { block: "" } }, [
-                        _vm._v("\n              Sign In\n            ")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "new" }, [
-                        _vm._v("\n              New Here? "),
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v("Create New Account")
-                        ])
+                  _c("div", { staticClass: "footer-dialog" }, [
+                    _c("div", { staticClass: "new" }, [
+                      _vm._v("\n              New Here? "),
+                      _c("a", { attrs: { href: "#" } }, [
+                        _vm._v("Create New Account")
                       ])
-                    ],
-                    1
-                  )
+                    ])
+                  ])
                 ]
               },
               proxy: true
@@ -574,7 +565,6 @@ var render = function() {
                                   [
                                     _c("vs-input", {
                                       attrs: {
-                                        color: this.$root.primary_color,
                                         primary: "",
                                         placeholder: "Email address"
                                       },
@@ -598,7 +588,7 @@ var render = function() {
                                       "vs-select",
                                       {
                                         attrs: {
-                                          label: "Multiple collapse chips",
+                                          label: "Select Role",
                                           multiple: true,
                                           color: this.$root.primary_color,
                                           "collapse-chips": "",
@@ -621,44 +611,130 @@ var render = function() {
                                               value: "1"
                                             }
                                           },
-                                          [
-                                            _vm._v(
-                                              "\n                            Vuesax\n                        "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "vs-option",
-                                          {
-                                            attrs: { label: "Vue", value: "2" }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                            Vue\n                        "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "vs-option",
-                                          {
-                                            attrs: {
-                                              label: "Javascript",
-                                              value: "3"
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                            Javascript\n                        "
-                                            )
-                                          ]
+                                          [_vm._v("Vuesax")]
                                         )
                                       ],
                                       1
                                     )
                                   ],
                                   1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-span-6 sm:col-span-3" },
+                                  [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "block text-sm font-medium text-gray-700",
+                                        attrs: { for: "street-address" }
+                                      },
+                                      [_vm._v("Street address")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      staticClass:
+                                        "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+                                      attrs: {
+                                        type: "text",
+                                        name: "street-address",
+                                        id: "street-address",
+                                        autocomplete: "street-address"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "col-span-6 sm:col-span-3 lg:col-span-2"
+                                  },
+                                  [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "block text-sm font-medium text-gray-700",
+                                        attrs: { for: "city" }
+                                      },
+                                      [_vm._v("City")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      staticClass:
+                                        "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+                                      attrs: {
+                                        type: "text",
+                                        name: "city",
+                                        id: "city",
+                                        autocomplete: "address-level2"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "col-span-6 sm:col-span-3 lg:col-span-2"
+                                  },
+                                  [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "block text-sm font-medium text-gray-700",
+                                        attrs: { for: "region" }
+                                      },
+                                      [_vm._v("State / Province")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      staticClass:
+                                        "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+                                      attrs: {
+                                        type: "text",
+                                        name: "region",
+                                        id: "region",
+                                        autocomplete: "address-level1"
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "col-span-6 sm:col-span-3 lg:col-span-2"
+                                  },
+                                  [
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass:
+                                          "block text-sm font-medium text-gray-700",
+                                        attrs: { for: "postal-code" }
+                                      },
+                                      [_vm._v("ZIP / Postal code")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      staticClass:
+                                        "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md",
+                                      attrs: {
+                                        type: "text",
+                                        name: "postal-code",
+                                        id: "postal-code",
+                                        autocomplete: "postal-code"
+                                      }
+                                    })
+                                  ]
                                 )
                               ]
                             )
@@ -672,16 +748,11 @@ var render = function() {
                               "px-4 py-3 bg-gray-50 text-right sm:px-6"
                           },
                           [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-                                attrs: { type: "submit" }
-                              },
-                              [_vm._v("\n              Save\n            ")]
-                            )
-                          ]
+                            _c("vs-button", { attrs: { block: "" } }, [
+                              _vm._v("\n              Sign In\n            ")
+                            ])
+                          ],
+                          1
                         )
                       ]
                     )
@@ -1406,6 +1477,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1422,7 +1502,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       active_modal: false,
       loading: false,
       edit_mode: false
-    }, _defineProperty(_ref, "loading", false), _defineProperty(_ref, "value3", ['1', '4', '5', '6']), _ref;
+    }, _defineProperty(_ref, "loading", false), _defineProperty(_ref, "value3", [1, 2, 3, 4, 6]), _ref;
   },
   methods: {
     openModal: function openModal(val) {
@@ -1607,7 +1687,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.vs-checkbox-label{\n       font-size: .8rem\n}\n.vs-input-content{\n      margin: 10px 0px;\n      width :calc(100%);\n}\n.vs-input{\n     width: 100%\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.vs-checkbox-label{\n       font-size: .8rem\n}\n.vs-input-content{\n      margin: 10px 0px;\n      width :calc(100%);\n}\n.vs-input{\n     width: 100%\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

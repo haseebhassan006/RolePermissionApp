@@ -20,7 +20,9 @@
                         </div>
                     </div>
          </div>
-          <content-placeholders v-if="loading">
+
+         <UserTable></UserTable>
+  <content-placeholders v-if="loading">
             <content-placeholders-heading :img="true" />
             <content-placeholders-text :lines="1" />
             <content-placeholders-heading :img="true" />
@@ -30,8 +32,6 @@
             <content-placeholders-heading :img="true" />
             <content-placeholders-text :lines="1" />
           </content-placeholders>
-         <UserTable></UserTable>
-
       <vs-dialog overflow-hidden full-screen v-model="active_modal">
         <template #header>
           <h4 class="not-margin">
@@ -68,43 +68,52 @@
 
               <div class="col-span-6 sm:col-span-3">
 
-               <vs-input :color="this.$root.primary_color" primary v-model="value" placeholder="Email address" />
+               <vs-input primary v-model="value" placeholder="Email address" />
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-
-                <vs-select label="Multiple collapse chips"  :multiple="true" :color="this.$root.primary_color" collapse-chips placeholder="Select Role" v-model="value3">
-                        <vs-option label="Vuesax" value="1">
-                            Vuesax
-                        </vs-option>
-                       <vs-option label="Vue" value="2">
-                            Vue
-                        </vs-option>
-                       <vs-option label="Javascript" value="3">
-                            Javascript
-                        </vs-option>
+                <vs-select   label="Select Role"  :multiple="true" :color="this.$root.primary_color" collapse-chips placeholder="Select Role" v-model="value3">
+                   <vs-option label="Vuesax" value="1">Vuesax</vs-option>
                 </vs-select>
               </div>
 
+              <div class="col-span-6 sm:col-span-3">
+                <label for="street-address" class="block text-sm font-medium text-gray-700">Street address</label>
+                <input type="text" name="street-address" id="street-address" autocomplete="street-address" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
 
+              <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                <input type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+
+              <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label>
+                <input type="text" name="region" id="region" autocomplete="address-level1" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+
+              <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label>
+                <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
             </div>
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Save
-            </button>
+            <vs-button block>
+              Sign In
+            </vs-button>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-</div>
-    <template #footer>
+
+        </div>
+
+        <template #footer>
           <div class="footer-dialog">
-            <vs-button block>
-              Sign In
-            </vs-button>
+
 
             <div class="new">
               New Here? <a href="#">Create New Account</a>
@@ -131,7 +140,7 @@ export default{
             loading:false,
             edit_mode:false,
             loading:false,
-            value3: ['1', '4', '5', '6'],
+            value3:[1,2,3,4,6]
 
         }
     },
@@ -177,6 +186,5 @@ export default{
      width: 100%
 
 }
-
 
 </style>
