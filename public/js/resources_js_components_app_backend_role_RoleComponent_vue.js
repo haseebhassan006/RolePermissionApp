@@ -403,44 +403,48 @@ var render = function() {
             "div",
             { staticClass: "con-form" },
             [
-              _c("vs-input", {
-                attrs: { placeholder: "Email" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "icon",
-                    fn: function() {
-                      return [_vm._v("\n           @\n         ")]
-                    },
-                    proxy: true
-                  }
-                ])
-              }),
-              _vm._v(" "),
-              _c("vs-input", {
-                attrs: { type: "password", placeholder: "Password" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "icon",
-                    fn: function() {
-                      return [_c("i", { staticClass: "bx bxs-lock" })]
-                    },
-                    proxy: true
-                  }
-                ])
-              }),
+              _c("vs-input", { attrs: { placeholder: "Role" } }),
               _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "flex" },
+                "vs-select",
+                {
+                  attrs: {
+                    filter: "",
+                    multiple: "",
+                    "collapse-chips": "",
+                    placeholder: "User"
+                  },
+                  model: {
+                    value: _vm.value3,
+                    callback: function($$v) {
+                      _vm.value3 = $$v
+                    },
+                    expression: "value3"
+                  }
+                },
                 [
-                  _c("vs-checkbox", [_vm._v("Remember me")]),
+                  _c("vs-option", { attrs: { label: "Vuesax", value: "1" } }, [
+                    _vm._v("\n       Vuesax\n     ")
+                  ]),
                   _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _vm._v("Forgot Password?")
+                  _c("vs-option", { attrs: { label: "Vue", value: "2" } }, [
+                    _vm._v("\n       Vue\n     ")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "vs-option",
+                    { attrs: { label: "Javascript", value: "3" } },
+                    [_vm._v("\n       Javascript\n     ")]
+                  ),
+                  _vm._v(" "),
+                  _c("vs-option", { attrs: { label: "Sass", value: "4" } }, [
+                    _vm._v("\n       Sass\n     ")
                   ])
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex" })
             ],
             1
           )
@@ -1070,6 +1074,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1081,7 +1098,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       active_modal: false,
       loading: false,
-      edit_mode: false
+      edit_mode: false,
+      value3: [1, 2, 4, 2, 5],
+      selected_users: [],
+      users: {},
+      errors: [],
+      page_num: 1,
+      query: "",
+      roles: {},
+      role: {}
     };
   },
   methods: {
@@ -1093,30 +1118,79 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var page;
+        var page, url;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
-                _this.loading = true; //  this.page_num=page;
-                //  const url="/management/role?page=" + page + "&query=" + this.query;
-                //    await axios.get(url).then((res)=>{
-                //        this.roles = res.data.roles;
-                //        this.users=res.data.users
-                //        console.log(res.data)
-                //        this.loading=false;
-                //    }).catch((err)=>{
-                //          this.$root.alertErrorMessage(err.response.status,err.response.data);
-                //    });
+                _this.loading = true;
+                _this.page_num = page;
+                url = "/management/role?page=" + page + "&query=" + _this.query;
+                _context.next = 6;
+                return axios.get(url).then(function (res) {
+                  _this.roles = res.data.roles;
+                  _this.users = res.data.users;
+                  console.log(res.data);
+                  _this.loading = false;
+                })["catch"](function (err) {
+                  _this.$root.alertErrorMessage(err.response.status, err.response.data);
+                });
 
-              case 2:
+              case 6:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    onSubmit: function onSubmit() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData = Object.assign(this.role, formData);
+      formData = Object.assign({
+        users: this.selected_users
+      }, formData);
+      var url = "/management/role";
+
+      if (!this.edit_mode) {
+        axios.post(url, formData).then(function (res) {
+          _this2.$root.alertNotificationMessage(res.status, "New role has been created successfully");
+
+          _this2.resetForm();
+
+          _this2.getRoles();
+        })["catch"](function (err) {
+          if (err.response.status == 422) {
+            _this2.errors = err.response.data.errors;
+            return _this2.$root.alertNotificationMessage(err.response.status, err.response.data.errors);
+          }
+
+          _this2.$root.alertNotificationMessage(err.response.status, err.response.data);
+        });
+      } else {
+        var data = {
+          id: this.role.id,
+          name: this.role.name,
+          users: this.selected_users
+        };
+        axios.put(url + "/" + this.role.id, data).then(function (res) {
+          _this2.getRoles();
+
+          _this2.resetForm();
+
+          _this2.$root.alertNotificationMessage(res.status, "Role has been updated successfully");
+        })["catch"](function (err) {
+          if (err.response.status == 422) {
+            _this2.errors = err.response.data.errors;
+            return _this2.$root.alertNotificationMessage(err.response.status, err.response.data.errors);
+          }
+
+          _this2.$root.alertNotificationMessage(err.response.status, err.response.data);
+        });
+      }
     }
   },
   mounted: function mounted() {

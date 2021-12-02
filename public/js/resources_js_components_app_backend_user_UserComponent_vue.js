@@ -525,13 +525,6 @@ var render = function() {
                                       attrs: {
                                         primary: "",
                                         placeholder: "First Name"
-                                      },
-                                      model: {
-                                        value: _vm.value,
-                                        callback: function($$v) {
-                                          _vm.value = $$v
-                                        },
-                                        expression: "value"
                                       }
                                     })
                                   ],
@@ -546,13 +539,6 @@ var render = function() {
                                       attrs: {
                                         primary: "",
                                         placeholder: "Last Name"
-                                      },
-                                      model: {
-                                        value: _vm.value,
-                                        callback: function($$v) {
-                                          _vm.value = $$v
-                                        },
-                                        expression: "value"
                                       }
                                     })
                                   ],
@@ -567,13 +553,6 @@ var render = function() {
                                       attrs: {
                                         primary: "",
                                         placeholder: "Email address"
-                                      },
-                                      model: {
-                                        value: _vm.value,
-                                        callback: function($$v) {
-                                          _vm.value = $$v
-                                        },
-                                        expression: "value"
                                       }
                                     })
                                   ],
@@ -584,38 +563,26 @@ var render = function() {
                                   "div",
                                   { staticClass: "col-span-6 sm:col-span-3" },
                                   [
-                                    _c(
-                                      "vs-select",
-                                      {
-                                        attrs: {
-                                          label: "Select Role",
-                                          multiple: true,
-                                          color: this.$root.primary_color,
-                                          "collapse-chips": "",
-                                          placeholder: "Select Role"
-                                        },
-                                        model: {
-                                          value: _vm.value3,
-                                          callback: function($$v) {
-                                            _vm.value3 = $$v
-                                          },
-                                          expression: "value3"
-                                        }
+                                    _c("multiselect", {
+                                      attrs: {
+                                        "tag-placeholder":
+                                          "Add this as new tag",
+                                        placeholder: "Search or add a tag",
+                                        label: "name",
+                                        "track-by": "code",
+                                        options: _vm.options,
+                                        multiple: true,
+                                        taggable: true
                                       },
-                                      [
-                                        _c(
-                                          "vs-option",
-                                          {
-                                            attrs: {
-                                              label: "Vuesax",
-                                              value: "1"
-                                            }
-                                          },
-                                          [_vm._v("Vuesax")]
-                                        )
-                                      ],
-                                      1
-                                    )
+                                      on: { tag: _vm.addTag },
+                                      model: {
+                                        value: _vm.value,
+                                        callback: function($$v) {
+                                          _vm.value = $$v
+                                        },
+                                        expression: "value"
+                                      }
+                                    })
                                   ],
                                   1
                                 ),
@@ -1484,8 +1451,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -1502,7 +1467,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       active_modal: false,
       loading: false,
       edit_mode: false
-    }, _defineProperty(_ref, "loading", false), _defineProperty(_ref, "value3", [1, 2, 3, 4, 6]), _ref;
+    }, _defineProperty(_ref, "loading", false), _defineProperty(_ref, "value", [{
+      name: 'Javascript',
+      code: 'js'
+    }]), _defineProperty(_ref, "options", [{
+      name: 'Vue.js',
+      code: 'vu'
+    }, {
+      name: 'Javascript',
+      code: 'js'
+    }, {
+      name: 'Open Source',
+      code: 'os'
+    }]), _ref;
   },
   methods: {
     openModal: function openModal(val) {
@@ -1687,7 +1664,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.vs-checkbox-label{\n       font-size: .8rem\n}\n.vs-input-content{\n      margin: 10px 0px;\n      width :calc(100%);\n}\n.vs-input{\n     width: 100%\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.vs-checkbox-label{\n       font-size: .8rem\n}\n.vs-input-content{\n      margin: 10px 0px;\n      width :calc(100%);\n}\n.vs-input{\n     width: 100%\n}\n.multiselect__option--highlight {\n    background: #163287;\n}\n.multiselect__tag {\n     background: #163287;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

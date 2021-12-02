@@ -19,4 +19,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->name('home');
+Route::get('/{any}', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->where('any', '.*')->name('home');

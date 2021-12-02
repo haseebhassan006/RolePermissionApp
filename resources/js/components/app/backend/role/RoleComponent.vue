@@ -37,19 +37,32 @@
           </h4>
         </template>
         <div class="con-form">
-          <vs-input  placeholder="Email">
-            <template #icon>
-              @
-            </template>
-          </vs-input>
-          <vs-input type="password"  placeholder="Password">
-            <template #icon>
-              <i class='bx bxs-lock'></i>
-            </template>
-          </vs-input>
+          <vs-input  placeholder="Role"></vs-input>
+
+             <vs-select
+
+        filter
+        multiple
+        collapse-chips
+        placeholder="User"
+        v-model="value3"
+      >
+        <vs-option label="Vuesax" value="1">
+          Vuesax
+        </vs-option>
+        <vs-option label="Vue" value="2">
+          Vue
+        </vs-option>
+        <vs-option label="Javascript" value="3">
+          Javascript
+        </vs-option>
+        <vs-option label="Sass" value="4">
+          Sass
+        </vs-option>
+
+      </vs-select>
           <div class="flex">
-            <vs-checkbox>Remember me</vs-checkbox>
-            <a href="#">Forgot Password?</a>
+
           </div>
         </div>
 
@@ -81,26 +94,71 @@ export default{
             active_modal:false,
             loading:false,
             edit_mode:false,
+            value3:[1,2,4,2,5],
+            selected_users:[],
+            users:{},
+            errors:[],
+            page_num:1,
+            query:"",
+            roles:{},
+            role:{},
         }
     },
     methods:{
         openModal(val){
             return this.active_modal=val;
         },
-           async getRoles(page=1){
+        async getRoles(page=1){
              this.loading=true;
-            //  this.page_num=page;
-            //  const url="/management/role?page=" + page + "&query=" + this.query;
-            //    await axios.get(url).then((res)=>{
-            //        this.roles = res.data.roles;
-            //        this.users=res.data.users
-            //        console.log(res.data)
-            //        this.loading=false;
+             this.page_num=page;
+             const url="/management/role?page=" + page + "&query=" + this.query;
+               await axios.get(url).then((res)=>{
+                   this.roles = res.data.roles;
+                   this.users=res.data.users
+                   console.log(res.data)
+                   this.loading=false;
 
-            //    }).catch((err)=>{
-            //          this.$root.alertErrorMessage(err.response.status,err.response.data);
-            //    });
-            },
+               }).catch((err)=>{
+                     this.$root.alertErrorMessage(err.response.status,err.response.data);
+               });
+        },
+        onSubmit(){
+            let formData = new FormData();
+                formData=Object.assign(this.role,formData);
+                formData=Object.assign({users:this.selected_users},formData)
+                const url="/management/role";
+                if(!this.edit_mode){
+                    axios.post(url,formData).then((res)=>{
+                    this.$root.alertNotificationMessage(res.status,"New role has been created successfully")
+                    this.resetForm();
+                    this.getRoles();
+
+                }).catch((err)=>{
+                     if(err.response.status==422){
+                        this.errors=err.response.data.errors;
+                        return this.$root.alertNotificationMessage(err.response.status,err.response.data.errors);
+                    }
+                    this.$root.alertNotificationMessage(err.response.status,err.response.data);
+                });
+                }
+                else {
+                    let data={id:this.role.id,name:this.role.name,users:this.selected_users};
+                    axios.put(url+"/"+this.role.id,data).then((res)=>{
+
+                     this.getRoles();
+                     this.resetForm();
+                    this.$root.alertNotificationMessage(res.status,"Role has been updated successfully");
+
+                }).catch((err)=>{
+                     if(err.response.status==422){
+                        this.errors=err.response.data.errors;
+                        return this.$root.alertNotificationMessage(err.response.status,err.response.data.errors);
+                    }
+                    this.$root.alertNotificationMessage(err.response.status,err.response.data);
+                });
+                }
+
+        },
 
     },
     mounted(){

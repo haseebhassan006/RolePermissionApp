@@ -12,8 +12,9 @@ function setComponent(path_file) {
 }
 const routes = [
     { path: "*", component: () => setComponent("error/404") },
-    { path: "/",
-redirect: { path: '/home' }
+    {
+        path: "/",
+        redirect: { path: '/home' }
     },
     { path: "/home", component: () => setComponent("backend/dashboard/Home"), name: "Home" },
     { path: "/users", component: () => setComponent("backend/user/User"), name: "User" },
@@ -23,7 +24,7 @@ redirect: { path: '/home' }
 
 const router = new VueRouter({
     routes,
-    mode:'history',
+    mode:"history",
     linkActiveClass: "active",
     linkExactActiveClass: "exact-active" // short for `
 });

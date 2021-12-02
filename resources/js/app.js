@@ -10,8 +10,10 @@ window.Vue = require('vue').default;
 import router from "./router";
 import VueContentPlaceholders from 'vue-content-placeholders'
 import Vuesax from 'vuesax'
+import Multiselect from 'vue-multiselect'
 Vue.use(Vuesax);
 Vue.use(VueContentPlaceholders)
+Vue.component('multiselect', Multiselect)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -32,6 +34,7 @@ Vue.use(VueContentPlaceholders)
  */
 // import vuesax css
 import 'vuesax/dist/vuesax.css'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 const app = new Vue({
     el: '#app',
@@ -41,6 +44,14 @@ const app = new Vue({
             axios.post('/logout').then((res) => {
                 window.location.href = "/login";
             });
+        },
+        addTag (newTag) {
+            const tag = {
+              name: newTag,
+              code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+            }
+            this.options.push(tag)
+            this.value.push(tag)
         },
     }
 

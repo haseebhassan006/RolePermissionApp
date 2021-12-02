@@ -58,23 +58,21 @@
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
 
-                <vs-input primary v-model="value" placeholder="First Name" />
+                <vs-input primary  placeholder="First Name" />
               </div>
 
               <div class="col-span-6 sm:col-span-3">
 
-               <vs-input primary v-model="value" placeholder="Last Name" />
+               <vs-input primary  placeholder="Last Name" />
               </div>
 
               <div class="col-span-6 sm:col-span-3">
 
-               <vs-input primary v-model="value" placeholder="Email address" />
+               <vs-input primary  placeholder="Email address" />
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-                <vs-select   label="Select Role"  :multiple="true" :color="this.$root.primary_color" collapse-chips placeholder="Select Role" v-model="value3">
-                   <vs-option label="Vuesax" value="1">Vuesax</vs-option>
-                </vs-select>
+                <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
               </div>
 
               <div class="col-span-6 sm:col-span-3">
@@ -140,15 +138,26 @@ export default{
             loading:false,
             edit_mode:false,
             loading:false,
-            value3:[1,2,3,4,6]
+            value: [
+        { name: 'Javascript', code: 'js' }
+      ],
+         options: [
+        { name: 'Vue.js', code: 'vu' },
+        { name: 'Javascript', code: 'js' },
+        { name: 'Open Source', code: 'os' }
+      ]
 
         }
     },
+
+
     methods:{
           openModal(val){
             return this.active_modal=val;
         },
-          async getUsers(page=1){
+
+
+        async getUsers(page=1){
              this.loading=true;
             //  this.page_num=page;
             //  const url="/management/role?page=" + page + "&query=" + this.query;
@@ -184,6 +193,14 @@ export default{
 }
 .vs-input{
      width: 100%
+
+}
+.multiselect__option--highlight {
+    background: #163287;
+
+}
+.multiselect__tag {
+     background: #163287;
 
 }
 
