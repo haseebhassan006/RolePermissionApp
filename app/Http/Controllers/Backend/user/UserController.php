@@ -18,12 +18,8 @@ class UserController extends Controller
 
 
         $q=request('query');
-
-
         $total_users=User::all()->count();
-
         $agents=Role::select('name')->withCount('users')->get();
-
         $users=User::where('name', 'like', '%' . $q . '%')
         ->Orwhere('email', 'like', '%' . $q. '%')
         ->latest()->with('user:id,name','roles')->paginate((int)env('PER_PAGE'));
