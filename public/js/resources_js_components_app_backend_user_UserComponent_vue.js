@@ -1467,10 +1467,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       active_modal: false,
       loading: false,
       edit_mode: false
-    }, _defineProperty(_ref, "loading", false), _defineProperty(_ref, "value", [{
-      name: 'Javascript',
-      code: 'js'
-    }]), _defineProperty(_ref, "options", [{
+    }, _defineProperty(_ref, "loading", false), _defineProperty(_ref, "value", []), _defineProperty(_ref, "options", [{
       name: 'Vue.js',
       code: 'vu'
     }, {
@@ -1664,7 +1661,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.vs-checkbox-label{\n       font-size: .8rem\n}\n.vs-input-content{\n      margin: 10px 0px;\n      width :calc(100%);\n}\n.vs-input{\n     width: 100%\n}\n.multiselect__option--highlight {\n    background: #163287;\n}\n.multiselect__tag {\n     background: #163287;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.vs-checkbox-label{\n       font-size: .8rem\n}\n.vs-input-content{\n      margin: 10px 0px;\n      width :calc(100%);\n}\n.vs-input{\n     width: 100%\n}\n.multiselect__option--highlight {\n    background: #163287;\n}\n.multiselect__tag {\n     background: #163287;\n}\n.multiselect__option--selected{\n    background: #163287;\n}\n.multiselect__option--highlight{\n      background: #163287;\n}\n.multiselect__option .multiselect__option--highlight{\n    background: #163287;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

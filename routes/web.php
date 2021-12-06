@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
-})->where('any', '.*');
-Route::get('/{any}', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->where('any', '.*')->name('home');
+});
+
+
+Route::middleware('auth')->group(function(){
+    Route::get('/{any}', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->where('any', '.*')->name('home');
+});
+

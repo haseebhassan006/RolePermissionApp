@@ -11,8 +11,10 @@ import router from "./router";
 import VueContentPlaceholders from 'vue-content-placeholders'
 import Vuesax from 'vuesax'
 import Multiselect from 'vue-multiselect'
+import vue2Dropzone from 'vue2-dropzone'
 Vue.use(Vuesax);
 Vue.use(VueContentPlaceholders)
+Vue.use(vue2Dropzone)
 Vue.component('multiselect', Multiselect)
 /**
  * The following block of code may be used to automatically register your
@@ -35,6 +37,8 @@ Vue.component('multiselect', Multiselect)
 // import vuesax css
 import 'vuesax/dist/vuesax.css'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import Vue from "vue";
 
 const app = new Vue({
     el: '#app',

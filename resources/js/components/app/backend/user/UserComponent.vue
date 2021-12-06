@@ -139,7 +139,7 @@ export default{
             edit_mode:false,
             loading:false,
             value: [
-        { name: 'Javascript', code: 'js' }
+
       ],
          options: [
         { name: 'Vue.js', code: 'vu' },
@@ -201,6 +201,17 @@ export default{
 }
 .multiselect__tag {
      background: #163287;
+
+}
+.multiselect__option--selected{
+    background: #163287;
+
+}
+.multiselect__option--highlight{
+      background: #163287;
+}
+.multiselect__option .multiselect__option--highlight{
+    background: #163287;
 
 }
 
