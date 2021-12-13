@@ -19,7 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::middleware('auth')->group(function(){
     Route::get('/{any}', [App\Http\Controllers\Backend\DashboardController::class, 'index'])->where('any', '.*')->name('home');
 });

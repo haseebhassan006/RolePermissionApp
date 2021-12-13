@@ -18,11 +18,6 @@ class RoleController extends Controller
         ->orderBy('name','ASC')
         ->with('users:id,name','permissions:id,name')
         ->paginate(env('PER_PAGE'));
-
-        // $users=User::orderBy('name','ASC')->get();
-
-        // return response()->json(['roles'=>$roles]);
-
         $users=User::select('id','name')->orderBy('name','ASC')->get();
        return response()->json(['roles'=>$roles,'users'=>$users]);
 

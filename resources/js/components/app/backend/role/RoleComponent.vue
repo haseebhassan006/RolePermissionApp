@@ -29,7 +29,7 @@
             <content-placeholders-heading :img="true" />
             <content-placeholders-text :lines="1" />
           </content-placeholders>
-        <RoleTable></RoleTable>
+        <RoleTable :getRoles="getRoles" :roles="roles" v-on:editItem="editItem($event)" v-on:deleteItem="deleteItem($event)" v-else></RoleTable>
         <vs-dialog v-model="active_modal">
         <template #header>
           <h4 class="not-margin">
@@ -37,44 +37,31 @@
           </h4>
         </template>
         <div class="con-form">
-          <vs-input  placeholder="Role"></vs-input>
-
-             <vs-select
+          <vs-input  placeholder="Role" v-model="role.name"></vs-input>
+          <vs-select  
 
         filter
         multiple
         collapse-chips
-        placeholder="User"
-        v-model="value3"
+        placeholder="Select Users"
+        v-model="selected_users"
+       
       >
-        <vs-option label="Vuesax" value="1">
-          Vuesax
+        <vs-option  v-for="item in users" label="Vuesax"  :key="item.id" :label="item.name" :value="item.id">
+           {{ item.name }}
         </vs-option>
-        <vs-option label="Vue" value="2">
-          Vue
-        </vs-option>
-        <vs-option label="Javascript" value="3">
-          Javascript
-        </vs-option>
-        <vs-option label="Sass" value="4">
-          Sass
-        </vs-option>
-
       </vs-select>
           <div class="flex">
-
           </div>
         </div>
 
         <template #footer>
           <div class="footer-dialog">
-            <vs-button block>
-              Sign In
+            <vs-button  gradient  type="submit" @click="onSubmit">
+              Add Role
             </vs-button>
 
-            <div class="new">
-              New Here? <a href="#">Create New Account</a>
-            </div>
+        
           </div>
         </template>
       </vs-dialog>
@@ -106,12 +93,19 @@ export default{
     },
     methods:{
         openModal(val){
+            this.resetForm();
             return this.active_modal=val;
+        },   
+        resetForm(){
+            this.edit_mode=false;
+            this.active_modal=false;
+            this.role={};
+            this.selected_users=[];
         },
         async getRoles(page=1){
              this.loading=true;
              this.page_num=page;
-             const url="/management/role?page=" + page + "&query=" + this.query;
+             const url="/api/management/role?page=" + page + "&query=" + this.query;
                await axios.get(url).then((res)=>{
                    this.roles = res.data.roles;
                    this.users=res.data.users
@@ -122,11 +116,52 @@ export default{
                      this.$root.alertErrorMessage(err.response.status,err.response.data);
                });
         },
+        deleteItem(item){
+            const url=`/api/management/role/${item.id}`;
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                axios.delete(url).then((res) => {
+                    Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                        this.getRoles();
+
+                  }).catch((err)=>{
+                        this.$root.alertNotificationMessage(err.response.status,err.response.data);
+                   //    console.log("erro",err.response.data.message);
+
+                  });
+              }
+            });
+          },
+        isquery(query) {
+            return (this.query = query);
+        },
+        filterdata(data){
+            this.roles=data.roles;
+          },
+        loadingStart(value) {
+
+            this.loading = value;
+        },
+        editItem(item) {
+            this.resetForm();
+            this.edit_mode=true;
+            this.active_modal=true;
+            this.role=item;
+            this.selected_users=item.users.map(x=> x.id)
+            },
         onSubmit(){
             let formData = new FormData();
                 formData=Object.assign(this.role,formData);
                 formData=Object.assign({users:this.selected_users},formData)
-                const url="/management/role";
+                const url="/api/management/role";
                 if(!this.edit_mode){
                     axios.post(url,formData).then((res)=>{
                     this.$root.alertNotificationMessage(res.status,"New role has been created successfully")
