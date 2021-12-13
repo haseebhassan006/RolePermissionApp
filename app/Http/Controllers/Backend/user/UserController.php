@@ -15,16 +15,13 @@ class UserController extends Controller
 {
     public function index()
     {
-
-
         $q=request('query');
         $total_users=User::all()->count();
         $agents=Role::select('name')->withCount('users')->get();
         $users=User::where('name', 'like', '%' . $q . '%')
         ->Orwhere('email', 'like', '%' . $q. '%')
-        ->latest()->with('user:id,name','roles')->paginate((int)env('PER_PAGE'));
+        ->latest()->with('user:id,name')->paginate((int)env('PER_PAGE'));
         return response()->json(['users'=>$users,'total_users'=>$total_users,'roles'=>$agents,'total_applications']);
-
 
     }
 
@@ -47,7 +44,7 @@ class UserController extends Controller
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
-            'user_id'=>$request->user()->id,
+     
         ];
 
         $new_user=$user->userCreateOrUpdate($request_array);
@@ -55,7 +52,7 @@ class UserController extends Controller
         // $permission_collection=Permission::WhereIn('id',  json_decode($request->selected_permissions))->get();
         $roles_collection = Role::WhereIn('id', $request->roles)->get();
         // $new_user->permissions()->attach($permission_collection);
-        $new_user->roles()->attach($roles_collection);
+       
         return response()->json($user,200);
     }
 
