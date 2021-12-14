@@ -20,6 +20,7 @@ const routes = [
     { path: "/users", component: () => setComponent("backend/user/User"), name: "User" },
     { path: "/roles", component: () => setComponent("backend/role/Role"), name: "Role" },
     { path: "/permissions", component: () => setComponent("backend/permission/Permission"), name: "Role" },
+    { path: "/edit/user/:id", component: () => setComponent("backend/permission/Permission"), name: "edit-user" },
 ];
 
 const router = new VueRouter({

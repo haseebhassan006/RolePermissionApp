@@ -5493,6 +5493,12 @@ var routes = [{
     return setComponent("backend/permission/Permission");
   },
   name: "Role"
+}, {
+  path: "/edit/user/:id",
+  component: function component() {
+    return setComponent("backend/permission/Permission");
+  },
+  name: "edit-user"
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes,

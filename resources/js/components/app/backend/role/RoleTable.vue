@@ -1,6 +1,12 @@
 <template>
    <div class="intro-y box p-5 mt-5">
                     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+                    <div  v-if="selected_items.length>0">
+                        <strong class="ml-4">Selected Items ({{selected_items.length}}) </strong>
+                        <vs-button icon danger :active="true" @click="alldeleteItems">
+                           Remove Items
+                       </vs-button>
+                    </div>
                         <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
                             <div class="sm:flex items-center sm:mr-4">
                                 <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Field</label>

@@ -513,14 +513,35 @@ var render = function() {
                     "div",
                     { staticClass: "footer-dialog" },
                     [
-                      _c(
-                        "vs-button",
-                        {
-                          attrs: { gradient: "", type: "submit" },
-                          on: { click: _vm.onSubmit }
-                        },
-                        [_vm._v("\n           Add Role\n         ")]
-                      )
+                      !this.edit_mode
+                        ? _c(
+                            "vs-button",
+                            {
+                              attrs: {
+                                color: "rgb(30, 32, 79)",
+                                gradient: "",
+                                type: "submit"
+                              },
+                              on: { click: _vm.onSubmit }
+                            },
+                            [_vm._v("\n                  Submit\n         ")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      this.edit_mode
+                        ? _c(
+                            "vs-button",
+                            {
+                              attrs: {
+                                color: "rgb(59,222,200)",
+                                gradient: "",
+                                type: "submit"
+                              },
+                              on: { click: _vm.onSubmit }
+                            },
+                            [_vm._v("\n                  Update\n         ")]
+                          )
+                        : _vm._e()
                     ],
                     1
                   )
@@ -690,9 +711,46 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "intro-y box p-5 mt-5" }, [
-    _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "flex flex-col sm:flex-row sm:items-end xl:items-start" },
+      [
+        _vm.selected_items.length > 0
+          ? _c(
+              "div",
+              [
+                _c("strong", { staticClass: "ml-4" }, [
+                  _vm._v(
+                    "Selected Items (" +
+                      _vm._s(_vm.selected_items.length) +
+                      ") "
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "vs-button",
+                  {
+                    attrs: { icon: "", danger: "", active: true },
+                    on: { click: _vm.alldeleteItems }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Remove Items\n                    "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1)
+      ]
+    ),
     _vm._v(" "),
-    _vm._m(1),
+    _vm._m(2),
     _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [
       _c("table", { staticClass: "table table-bordernone" }, [
@@ -861,257 +919,235 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "div",
-      { staticClass: "flex flex-col sm:flex-row sm:items-end xl:items-start" },
+      "form",
+      {
+        staticClass: "xl:flex sm:mr-auto",
+        attrs: { id: "tabulator-html-filter-form" }
+      },
       [
+        _c("div", { staticClass: "sm:flex items-center sm:mr-4" }, [
+          _c(
+            "label",
+            { staticClass: "w-12 flex-none xl:w-auto xl:flex-initial mr-2" },
+            [_vm._v("Field")]
+          ),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              staticClass:
+                "form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto",
+              attrs: { id: "tabulator-html-filter-field" }
+            },
+            [
+              _c("option", { attrs: { value: "name" } }, [_vm._v("Name")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "category" } }, [
+                _vm._v("Category")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "remaining_stock" } }, [
+                _vm._v("Remaining Stock")
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _c(
-          "form",
-          {
-            staticClass: "xl:flex sm:mr-auto",
-            attrs: { id: "tabulator-html-filter-form" }
-          },
+          "div",
+          { staticClass: "sm:flex items-center sm:mr-4 mt-2 xl:mt-0" },
           [
-            _c("div", { staticClass: "sm:flex items-center sm:mr-4" }, [
-              _c(
-                "label",
-                {
-                  staticClass: "w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-                },
-                [_vm._v("Field")]
-              ),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  staticClass:
-                    "form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto",
-                  attrs: { id: "tabulator-html-filter-field" }
-                },
-                [
-                  _c("option", { attrs: { value: "name" } }, [_vm._v("Name")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "category" } }, [
-                    _vm._v("Category")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "remaining_stock" } }, [
-                    _vm._v("Remaining Stock")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
             _c(
-              "div",
-              { staticClass: "sm:flex items-center sm:mr-4 mt-2 xl:mt-0" },
-              [
-                _c(
-                  "label",
-                  {
-                    staticClass: "w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-                  },
-                  [_vm._v("Type")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass: "form-select w-full mt-2 sm:mt-0 sm:w-auto",
-                    attrs: { id: "tabulator-html-filter-type" }
-                  },
-                  [
-                    _c("option", { attrs: { value: "like", selected: "" } }, [
-                      _vm._v("like")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "=" } }, [_vm._v("=")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "<" } }, [_vm._v("<")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "<=" } }, [_vm._v("<=")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: ">" } }, [_vm._v(">")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: ">=" } }, [_vm._v(">=")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "!=" } }, [_vm._v("!=")])
-                  ]
-                )
-              ]
+              "label",
+              { staticClass: "w-12 flex-none xl:w-auto xl:flex-initial mr-2" },
+              [_vm._v("Type")]
             ),
             _vm._v(" "),
             _c(
-              "div",
-              { staticClass: "sm:flex items-center sm:mr-4 mt-2 xl:mt-0" },
+              "select",
+              {
+                staticClass: "form-select w-full mt-2 sm:mt-0 sm:w-auto",
+                attrs: { id: "tabulator-html-filter-type" }
+              },
               [
-                _c(
-                  "label",
-                  {
-                    staticClass: "w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-                  },
-                  [_vm._v("Value")]
-                ),
+                _c("option", { attrs: { value: "like", selected: "" } }, [
+                  _vm._v("like")
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control sm:w-40 2xl:w-full mt-2 sm:mt-0",
-                  attrs: {
-                    id: "tabulator-html-filter-value",
-                    type: "text",
-                    placeholder: "Search..."
-                  }
-                })
+                _c("option", { attrs: { value: "=" } }, [_vm._v("=")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "<" } }, [_vm._v("<")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "<=" } }, [_vm._v("<=")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: ">" } }, [_vm._v(">")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: ">=" } }, [_vm._v(">=")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "!=" } }, [_vm._v("!=")])
               ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "mt-2 xl:mt-0" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary w-full sm:w-16",
-                  attrs: { id: "tabulator-html-filter-go", type: "button" }
-                },
-                [_vm._v("Go")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1",
-                  attrs: { id: "tabulator-html-filter-reset", type: "button" }
-                },
-                [_vm._v("Reset")]
-              )
-            ])
+            )
           ]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "flex mt-5 sm:mt-0" }, [
+        _c(
+          "div",
+          { staticClass: "sm:flex items-center sm:mr-4 mt-2 xl:mt-0" },
+          [
+            _c(
+              "label",
+              { staticClass: "w-12 flex-none xl:w-auto xl:flex-initial mr-2" },
+              [_vm._v("Value")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control sm:w-40 2xl:w-full mt-2 sm:mt-0",
+              attrs: {
+                id: "tabulator-html-filter-value",
+                type: "text",
+                placeholder: "Search..."
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-2 xl:mt-0" }, [
           _c(
             "button",
             {
-              staticClass: "btn btn-outline-secondary w-1/2 sm:w-auto mr-2",
-              attrs: { id: "tabulator-print" }
+              staticClass: "btn btn-primary w-full sm:w-16",
+              attrs: { id: "tabulator-html-filter-go", type: "button" }
             },
-            [
-              _c("i", {
-                staticClass: "w-4 h-4 mr-2",
-                attrs: { "data-feather": "printer" }
-              }),
-              _vm._v(" Print ")
-            ]
+            [_vm._v("Go")]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "dropdown w-1/2 sm:w-auto" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "dropdown-toggle btn btn-outline-secondary w-full sm:w-auto",
-                attrs: { "aria-expanded": "false" }
-              },
-              [
-                _c("i", {
-                  staticClass: "w-4 h-4 mr-2",
-                  attrs: { "data-feather": "file-text" }
-                }),
-                _vm._v(" Export "),
-                _c("i", {
-                  staticClass: "w-4 h-4 ml-auto sm:ml-2",
-                  attrs: { "data-feather": "chevron-down" }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-menu w-40" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "dropdown-menu__content box dark:bg-dark-1 p-2"
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
-                      attrs: {
-                        id: "tabulator-export-csv",
-                        href: "javascript:;"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "w-4 h-4 mr-2",
-                        attrs: { "data-feather": "file-text" }
-                      }),
-                      _vm._v(" Export CSV ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
-                      attrs: {
-                        id: "tabulator-export-json",
-                        href: "javascript:;"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "w-4 h-4 mr-2",
-                        attrs: { "data-feather": "file-text" }
-                      }),
-                      _vm._v(" Export JSON ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
-                      attrs: {
-                        id: "tabulator-export-xlsx",
-                        href: "javascript:;"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "w-4 h-4 mr-2",
-                        attrs: { "data-feather": "file-text" }
-                      }),
-                      _vm._v(" Export XLSX ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
-                      attrs: {
-                        id: "tabulator-export-html",
-                        href: "javascript:;"
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "w-4 h-4 mr-2",
-                        attrs: { "data-feather": "file-text" }
-                      }),
-                      _vm._v(" Export HTML ")
-                    ]
-                  )
-                ]
-              )
-            ])
-          ])
+          _c(
+            "button",
+            {
+              staticClass:
+                "btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1",
+              attrs: { id: "tabulator-html-filter-reset", type: "button" }
+            },
+            [_vm._v("Reset")]
+          )
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex mt-5 sm:mt-0" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-secondary w-1/2 sm:w-auto mr-2",
+          attrs: { id: "tabulator-print" }
+        },
+        [
+          _c("i", {
+            staticClass: "w-4 h-4 mr-2",
+            attrs: { "data-feather": "printer" }
+          }),
+          _vm._v(" Print ")
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "dropdown w-1/2 sm:w-auto" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "dropdown-toggle btn btn-outline-secondary w-full sm:w-auto",
+            attrs: { "aria-expanded": "false" }
+          },
+          [
+            _c("i", {
+              staticClass: "w-4 h-4 mr-2",
+              attrs: { "data-feather": "file-text" }
+            }),
+            _vm._v(" Export "),
+            _c("i", {
+              staticClass: "w-4 h-4 ml-auto sm:ml-2",
+              attrs: { "data-feather": "chevron-down" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown-menu w-40" }, [
+          _c(
+            "div",
+            { staticClass: "dropdown-menu__content box dark:bg-dark-1 p-2" },
+            [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
+                  attrs: { id: "tabulator-export-csv", href: "javascript:;" }
+                },
+                [
+                  _c("i", {
+                    staticClass: "w-4 h-4 mr-2",
+                    attrs: { "data-feather": "file-text" }
+                  }),
+                  _vm._v(" Export CSV ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
+                  attrs: { id: "tabulator-export-json", href: "javascript:;" }
+                },
+                [
+                  _c("i", {
+                    staticClass: "w-4 h-4 mr-2",
+                    attrs: { "data-feather": "file-text" }
+                  }),
+                  _vm._v(" Export JSON ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
+                  attrs: { id: "tabulator-export-xlsx", href: "javascript:;" }
+                },
+                [
+                  _c("i", {
+                    staticClass: "w-4 h-4 mr-2",
+                    attrs: { "data-feather": "file-text" }
+                  }),
+                  _vm._v(" Export XLSX ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md",
+                  attrs: { id: "tabulator-export-html", href: "javascript:;" }
+                },
+                [
+                  _c("i", {
+                    staticClass: "w-4 h-4 mr-2",
+                    attrs: { "data-feather": "file-text" }
+                  }),
+                  _vm._v(" Export HTML ")
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -1412,6 +1448,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -1587,6 +1626,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _components_AvatarComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/AvatarComponent.vue */ "./resources/js/components/app/backend/components/AvatarComponent.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //

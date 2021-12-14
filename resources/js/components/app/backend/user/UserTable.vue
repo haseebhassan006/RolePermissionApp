@@ -101,7 +101,7 @@
                     </td>       
                     <td>{{user.user ? user.user.name : "N/A"}}</td>
                     <td>{{user.created_at | timeformat}}</td>
-                    <td><router-link :to="{name: 'update-user', params: { id: user.id }}"><i class="fa  fa-edit text-primary"></i></router-link> |  <a role="button"  @click="deleteItem(user)"><i class="fa  fa-trash text-danger"></i></a></td>
+                    <td><vs-button @click="editItem(role)">Edit</vs-button> |  <a role="button"  @click="deleteItem(user)"><i class="fa  fa-trash text-danger"></i></a></td>
                
                 </tr>
 
@@ -114,7 +114,7 @@
 <script>
 import Avatar from "../components/AvatarComponent.vue";
 export default{
-    props:['users','getUsers'],
+    props:['users','getUsers','roles'],
     components:{
         Avatar,
     },
@@ -135,7 +135,7 @@ export default{
          }
          
      },
-      alldeleteItems(){
+    alldeleteItems(){
           Swal.fire({
               title: "Are you sure?",
               text: "You won't be able to revert this!",

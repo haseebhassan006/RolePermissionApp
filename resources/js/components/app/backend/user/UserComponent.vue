@@ -24,10 +24,10 @@
     <content-placeholders-text :lines="1" />
     <content-placeholders-heading :img="true" />
     <content-placeholders-text :lines="1" />
-     <content-placeholders-heading :img="true" />
+    <content-placeholders-heading :img="true" />
     <content-placeholders-text :lines="1" />
   </content-placeholders>
-  <UserTable :getUsers="getUsers" :users="users" v-on:deleteItem="deleteItem($event)" v-else></UserTable>
+  <UserTable :getUsers="getUsers" :roles="roles" :users="users" v-on:deleteItem="deleteItem($event)" v-on:editItem="editItem($event)" v-else></UserTable>
 
   <vs-dialog overflow-hidden full-screen v-model="active_modal">
     <template #header>
@@ -85,6 +85,9 @@
             <vs-button color="rgb(30, 32, 79)" gradient  type="submit"  v-if="!edit_mode" @click="onSubmit">
                   Create User          
             </vs-button>
+            <vs-button  color="rgb(59,222,200)" gradient  type="submit"  @click="onSubmit" v-if="this.edit_mode">
+                     Update
+            </vs-button>
           </div>
         </div>
     </div>
@@ -112,6 +115,7 @@ export default{
     data(){
         return {
             users:{},
+        
             query:"",
             loading:false,
             total_users:0,
@@ -149,6 +153,19 @@ export default{
                  this.roles=res.data.roles;
              });
          },
+           resetForm(){
+            this.edit_mode=false;
+            this.active_modal=false;
+            this.role={};
+            this.selected_users=[];
+        },
+            editItem(item) {
+            this.resetForm();
+            this.edit_mode=true;
+            this.active_modal=true;
+            this.role=item;
+            this.selected_users=item.users.map(x=> x.id)
+            },
 
         async getUsers(page=1){
                   this.loading =true;

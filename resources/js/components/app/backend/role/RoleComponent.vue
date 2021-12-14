@@ -57,8 +57,11 @@
 
         <template #footer>
           <div class="footer-dialog">
-            <vs-button  gradient  type="submit" @click="onSubmit">
-              Add Role
+            <vs-button color="rgb(30, 32, 79)" gradient  type="submit" @click="onSubmit"  v-if="!this.edit_mode">
+                     Submit
+            </vs-button>
+            <vs-button  color="rgb(59,222,200)" gradient  type="submit"  @click="onSubmit" v-if="this.edit_mode">
+                     Update
             </vs-button>
 
         

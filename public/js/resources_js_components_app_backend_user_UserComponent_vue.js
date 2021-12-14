@@ -535,10 +535,17 @@ var render = function() {
             1
           )
         : _c("UserTable", {
-            attrs: { getUsers: _vm.getUsers, users: _vm.users },
+            attrs: {
+              getUsers: _vm.getUsers,
+              roles: _vm.roles,
+              users: _vm.users
+            },
             on: {
               deleteItem: function($event) {
                 return _vm.deleteItem($event)
+              },
+              editItem: function($event) {
+                return _vm.editItem($event)
               }
             }
           }),
@@ -830,6 +837,25 @@ var render = function() {
                                   )
                                 ]
                               )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          this.edit_mode
+                            ? _c(
+                                "vs-button",
+                                {
+                                  attrs: {
+                                    color: "rgb(59,222,200)",
+                                    gradient: "",
+                                    type: "submit"
+                                  },
+                                  on: { click: _vm.onSubmit }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                     Update\n            "
+                                  )
+                                ]
+                              )
                             : _vm._e()
                         ],
                         1
@@ -1090,13 +1116,15 @@ var render = function() {
                 "td",
                 [
                   _c(
-                    "router-link",
+                    "vs-button",
                     {
-                      attrs: {
-                        to: { name: "update-user", params: { id: user.id } }
+                      on: {
+                        click: function($event) {
+                          return _vm.editItem(_vm.role)
+                        }
                       }
                     },
-                    [_c("i", { staticClass: "fa  fa-edit text-primary" })]
+                    [_vm._v("Edit")]
                   ),
                   _vm._v(" |  "),
                   _c(
@@ -1721,6 +1749,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1779,6 +1810,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    resetForm: function resetForm() {
+      this.edit_mode = false;
+      this.active_modal = false;
+      this.role = {};
+      this.selected_users = [];
+    },
+    editItem: function editItem(item) {
+      this.resetForm();
+      this.edit_mode = true;
+      this.active_modal = true;
+      this.role = item;
+      this.selected_users = item.users.map(function (x) {
+        return x.id;
+      });
     },
     getUsers: function getUsers() {
       var _arguments = arguments,
@@ -2035,7 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['users', 'getUsers'],
+  props: ['users', 'getUsers', 'roles'],
   components: {
     Avatar: _components_AvatarComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },

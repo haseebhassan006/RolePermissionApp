@@ -17,7 +17,6 @@ class PermissionController extends Controller
         $permissions=Permission::where('name', 'like', '%' .$q. '%')
         ->orderBy('name','ASC')
         ->with('roles:id,name','users:id,name')->paginate(env('PAR_PAGE'));
-
         $roles=Role::select('id','name')->orderBy('name','ASC')->get();
         $users=User::select('id','name')->orderBy('name','ASC')->get();
 

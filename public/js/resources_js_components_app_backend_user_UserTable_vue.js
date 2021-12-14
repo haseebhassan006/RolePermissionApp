@@ -317,13 +317,15 @@ var render = function() {
                 "td",
                 [
                   _c(
-                    "router-link",
+                    "vs-button",
                     {
-                      attrs: {
-                        to: { name: "update-user", params: { id: user.id } }
+                      on: {
+                        click: function($event) {
+                          return _vm.editItem(_vm.role)
+                        }
                       }
                     },
-                    [_c("i", { staticClass: "fa  fa-edit text-primary" })]
+                    [_vm._v("Edit")]
                   ),
                   _vm._v(" |  "),
                   _c(
@@ -903,7 +905,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['users', 'getUsers'],
+  props: ['users', 'getUsers', 'roles'],
   components: {
     Avatar: _components_AvatarComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
